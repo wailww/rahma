@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>احتفالية رحمة | Rahma's Celebration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #fffafb;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 175, 188, 0.2);
+        }
+
+        .nav-item {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #e11d48;
+            transition: width 0.3s ease;
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        .console-box {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .birthday-bg {
+            background: radial-gradient(circle, #fff5f7 0%, #ffe4e6 100%);
+       height: fit-content;
+        }
+        
+
+        /* --- Realistic Cake Styling 3.0 --- */
+       /* --- Realistic Cake Styling 3.0 (Enhanced) --- */
+        /* --- Realistic Cake Styling 3.0 --- */
+        .cake-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 30px 50px rgba(225, 29, 72, 0.2));
+            perspective: 1000px;
+            padding-top: 50px; /* مساحة إضافية للشمعة */
+        }
+
+        .cake-layer {
+            position: relative;
+            background: #fdf2f8;
+            border-radius: 50% / 20%;
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .cake-layer-bottom {
+            width: 300px;
+            height: 90px;
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            box-shadow: 0 15px 0 #f9a8d4, inset 0 -5px 15px rgba(219, 39, 119, 0.2);
+            z-index: 1;
+            margin-top: -20px; /* تقليل التداخل */
+        }
+
+        .cake-layer-middle {
+            width: 230px;
+            height: 85px;
+            margin-top: -35px; /* أزحتها للأسفل قليلاً لتقليل التغطية */
+            background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 100%);
+            box-shadow: 0 12px 0 #fce7f3, inset 0 -5px 10px rgba(219, 39, 119, 0.1);
+            z-index: 3;
+        }
+
+        .cake-layer-top {
+            width: 160px;
+            height: 90px; /* زدت الطول لتوفير مساحة للحرف */
+            margin-top: -40px; /* أزحتها للأسفل لكي لا تضغط على الحرف */
+            background: #ffffff;
+            box-shadow: 0 10px 0 #fdf2f8;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cream-drip {
+            position: absolute;
+            top: 40%;
+            width: 18px;
+            background: #ffffff;
+            border-radius: 0 0 12px 12px;
+            z-index: 6;
+        }
+
+        .cake-pearl {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle at 30% 30%, #fff, #fbcfe8);
+            border-radius: 50%;
+            z-index: 7;
+        }
+
+        .cake-topping-text {
+            font-size: 3.5rem; /* تكبير الحرف قليلاً */
+            font-weight: 900;
+            color: #be185d;
+            text-shadow: 3px 3px 0px #fce7f3;
+            z-index: 10;
+            padding-bottom: 5px; /* رفع الحرف قليلاً عن قاعدة الطبقة */
+        }
+.candle {
+            width: 12px;
+            height: 50px; /* تقصير طول الشمعة قليلاً */
+            background: linear-gradient(to right, #fb7185, #f43f5e, #fb7185);
+            border-radius: 6px;
+            position: absolute;
+            top: -25px; /* إنزال الشمعة للأسفل لكي لا تغطي ما خلفها */
+            z-index: 15;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .flame {
+            width: 18px;
+            height: 28px;
+            background: radial-gradient(circle at center, #fff 10%, #ffcc00 40%, #ff8c00 70%, transparent 90%);
+            border-radius: 50% 50% 20% 20%;
+            position: absolute;
+            top: -28px; /* ضبط مكان الشعلة بالنسبة للشمعة الجديدة */
+            left: -3px;
+            box-shadow: 0 0 20px #ffcc00;
+            animation: flicker 0.1s infinite alternate;
+        }/* --- Rose Styling --- */
+        .rose-box {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .rose-petal {
+            fill: #e11d48;
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+        }
+
+        .rose-bloom {
+            transform-origin: bottom center;
+            animation: bloomEffect 3s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
+        }
+
+        @keyframes bloomEffect {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .confetti {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="glass-nav fixed top-0 w-full z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-rose-600">رحمة </div>
+            <div class="hidden md:flex space-x-8 space-x-reverse">
+                <a href="#about" class="nav-item text-gray-700 font-medium hover:text-rose-600">About</a>
+                <a href="#story" class="nav-item text-gray-700 font-medium hover:text-rose-600">Story</a>
+                <a href="#birthday" class="nav-item text-gray-700 font-medium hover:text-rose-600">Birthday</a>
+                <a href="#rose" class="nav-item text-gray-700 font-medium hover:text-rose-600">Rose</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Section: About -->
+    <section id="about" class="min-h-screen flex items-center justify-center pt-20 px-6">
+        <div class="max-w-4xl w-full">
+            <div class="text-center mb-10">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">عن رحمة</h2>
+                <div class="w-20 h-1 bg-rose-500 mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="console-box p-6 md:p-10 shadow-2xl">
+                <div class="flex space-x-2 space-x-reverse mb-6 border-b border-gray-700 pb-4">
+                    <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                    <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                </div>
+                <div id="console-text" class="text-sm md:text-base leading-relaxed typing-cursor min-h-[350px] font-mono"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Story -->
+    <section id="story" class="min-h-screen flex items-center justify-center bg-white px-6">
+        <div class="max-w-3xl w-full">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800">حكاية رحمة</h2>
+                <p class="text-gray-500 mt-2">رحلة النجمة المشرقة في حياتنا</p>
+            </div>
+            
+            <div class="relative bg-rose-50 p-8 md:p-12 rounded-3xl border border-rose-100 overflow-hidden shadow-[0_20px_60px_-15px_rgba(225,29,72,0.15)]">
+                <div id="story-slider" class="relative min-h-[250px]">
+                    <!-- Slide 1 -->
+                    <div class="story-slide opacity-100 transition-opacity duration-500">
+                        <h3 class="text-2xl font-bold text-rose-600 mb-4">01. نجمة الحياة 🌸</h3>
+                        <p class="text-gray-700 text-lg leading-loose font-medium mb-3">ولدت رحمة كأيقونة من اللطف، تحمل في قلبها دفئاً يغير ملامح المكان بمجرد دخولها.</p>
+                        <p class="text-rose-500 italic">"عيد ميلاد سعيد يا نجمة حياتي! كل يوم معك يجعل العالم أجمل، وأتمنى لك سنة مليئة بالفرح والنجاح."</p>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="story-slide absolute top-0 left-0 w-full opacity-0 transition-opacity duration-500">
+                        <h3 class="text-2xl font-bold text-rose-600 mb-4">02. إلهام يتفتح 💖✨</h3>
+                        <p class="text-gray-700 text-lg leading-loose font-medium mb-3">كل عام يمر، تزداد رحمة بريقاً وذكاءً، ترسم أحلامها بألوان الطموح وتواجه التحديات بابتسامة رقيقة.</p>
+                        <p class="text-rose-500 italic">"أنتِ أكثر شخص يُلهمني، فلتستمر أحلامك تتفتح مثل الورود، وكل لحظة قادمة تحمل لك سعادة لا تُنسى."</p>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="story-slide absolute top-0 left-0 w-full opacity-0 transition-opacity duration-500">
+                        <h3 class="text-2xl font-bold text-rose-600 mb-4">03. روحٌ لا تُنسى 🌹🎉</h3>
+                        <p class="text-gray-700 text-lg leading-loose font-medium mb-3">اكتشفت رحمة أن شغفها هو محركها الأساسي، فبدأت تبدع في كل تفصيل تلمسه يداها، تاركة بصمة فريدة.</p>
+                        <p class="text-rose-500 italic">"اليوم نحتفل بك وبكل جمال روحك، فابتسامتك قادرة على تغيير كل شيء حولك."</p>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="story-slide absolute top-0 left-0 w-full opacity-0 transition-opacity duration-500">
+                        <h3 class="text-2xl font-bold text-rose-600 mb-4">04. إشراق دائم 🚀💫</h3>
+                        <p class="text-gray-700 text-lg leading-loose font-medium mb-3">لم تكن الطرق دائماً معبدة بالورود، لكن قوة إرادتها جعلتها تتجاوز كل الصعاب لتصبح أكثر صلابة وجمالاً.</p>
+                        <p class="text-rose-500 italic">"كل سنة وأنتِ أقوى، أذكى، وأكثر إشراقًا، وأنا متأكد أن القادم سيكون مليئًا بالمفاجآت الرائعة لك."</p>
+                    </div>
+                    <!-- Slide 5 -->
+                    <div class="story-slide absolute top-0 left-0 w-full opacity-0 transition-opacity duration-500">
+                        <h3 class="text-2xl font-bold text-rose-600 mb-4">05. طاقة الإبداع 🌟💝</h3>
+                        <p class="text-gray-700 text-lg leading-loose font-medium mb-3">أصبحت رحمة ملهمة لكل من حولها، تنشر الأمل والكلمة الطيبة، وتؤكد أن الجمال الحقيقي ينبع من الداخل.</p>
+                        <p class="text-rose-500 italic">"عيد ميلاد سعيد! تذكري دائمًا أن العالم بحاجة لكل لمسة من طاقتك وإبداعك."</p>
+                    </div>
+                    <!-- Slide 6 -->
+                    <div class="story-slide absolute top-0 left-0 w-full opacity-0 transition-opacity duration-500">
+                        <h3 class="text-2xl font-bold text-rose-600 mb-4">06. استحقاق الحب 💐❤️</h3>
+                        <p class="text-gray-700 text-lg leading-loose font-medium mb-3">اليوم هو احتفال ليس فقط بيوم ميلاد، بل بوجود روح استثنائية تجعل العالم مكاناً أجمل لكل من حولها.</p>
+                        <p class="text-rose-500 italic">"لنحتفل بك اليوم، وبكل النجاحات القادمة، فأنتِ تستحقين الحب، الفرح، وكل الأشياء الجميلة في الحياة."</p>
+                    </div>
+                </div>
+                
+                <div class="mt-10 flex justify-between items-center border-t border-rose-100 pt-6">
+                    <span id="slide-num" class="text-rose-500 font-bold bg-rose-100 px-4 py-1 rounded-full">1 / 6</span>
+                    <button onclick="nextSlide()" class="bg-rose-600 text-white px-10 py-3 rounded-full hover:bg-rose-700 transition-all shadow-lg flex items-center space-x-2 space-x-reverse">
+                        <span>التالي</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Birthday -->
+    <section id="birthday" class="min-h-screen birthday-bg flex flex-col items-center justify-center px-6 relative overflow-hidden">
+        <h2 class="text-5xl md:text-8xl font-black mb-24 text-transparent bg-clip-text bg-gradient-to-r from-rose-600 via-pink-500 to-orange-400 text-center py-4 leading-tight">
+            عيد ميلاد سعيد رحمة
+        </h2>
+
+        <!-- Professional Styled Cake -->
+        <div class="cake-container scale-[1.4] md:scale-[1.8]">
+            <div class="candle" style="left: 47%;"><div class="flame"></div></div>
+            <div class="cake-layer cake-layer-top">
+                <div class="cake-topping-text">R</div>
+                <div class="cream-drip" style="left: 15%; height: 25px;"></div>
+                <div class="cream-drip" style="right: 15%; height: 30px;"></div>
+                <div class="cake-pearl" style="top: 10px; left: 20px;"></div>
+                <div class="cake-pearl" style="top: 15px; right: 25px;"></div>
+            </div>
+            <div class="cake-layer cake-layer-middle">
+                 <div class="absolute top-4 left-1/2 -translate-x-1/2 w-[90%] h-3 bg-white/40 rounded-full blur-[1px]"></div>
+            </div>
+            <div class="cake-layer cake-layer-bottom">
+                 <div class="absolute top-6 left-1/2 -translate-x-1/2 w-[95%] h-4 bg-pink-100/30 rounded-full blur-[1px]"></div>
+            </div>
+            <div class="w-[340px] h-14 bg-rose-200/40 rounded-[100%] -mt-6 blur-lg"></div>
+            <div class="w-[310px] h-4 bg-white/80 rounded-[100%] -mt-10 border border-rose-100"></div>
+        </div>
+
+        <button onclick="makeAWish()" class="mt-36 bg-gradient-to-r from-pink-500 to-rose-600 text-white px-20 py-5 rounded-full text-2xl font-bold shadow-lg hover:scale-110 transition-all z-20 border-b-4 border-rose-800">
+            أطفئ الشموع واحتفل 🎉
+        </button>
+    </section>
+
+    <!-- Section: Rose -->
+    <section id="rose" class="min-h-screen flex flex-col items-center justify-center bg-white px-6">
+        <div id="rose-container" class="rose-box rose-bloom opacity-0">
+            <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-2xl">
+                <path d="M50 110 Q50 80 50 55" stroke="#064e3b" stroke-width="4" fill="none" stroke-linecap="round" />
+                <path d="M30 65 Q20 60 25 50 Q35 55 30 65" fill="#059669" />
+                <path d="M70 55 Q80 50 75 40 Q65 45 70 55" fill="#059669" />
+                <g class="rose-petals">
+                    <path class="rose-petal" d="M50 55 C30 55 25 35 50 20 C75 35 70 55 50 55" />
+                    <path class="rose-petal" style="opacity: 0.9" d="M50 55 C25 50 20 25 50 15 C80 25 75 50 50 55" transform="rotate(45 50 35)" />
+                    <path class="rose-petal" style="opacity: 0.9" d="M50 55 C25 50 20 25 50 15 C80 25 75 50 50 55" transform="rotate(-45 50 35)" />
+                    <ellipse cx="50" cy="32" rx="12" ry="15" fill="#9f1239" />
+                </g>
+            </svg>
+        </div>
+        <p class="mt-12 text-rose-500 italic text-2xl font-medium text-center max-w-lg">
+            "مثل الوردة النادرة التي تزهر في القمة، هكذا أنتِ دائماً متميزة وفريدة.."
+        </p>
+    </section>
+
+    <footer class="py-12 text-center text-gray-400 text-sm border-t border-gray-100">
+        صُنع بكل إتقان للاحتفال بيوم ميلاد رحمة السعيد &copy; 2026
+    </footer>
+
+    <script>
+        // --- Typing Effect ---
+ const aboutText = `> Initializing Profile: Rahma_Khayat_v2.1...
+> [الاسم]: رحمة خياط
+> [العمر]: 21 سنة
+> [التخصص]: مدرسة عليا اعلام الي تلمسان
+> [المهارات]: Graphic Designer & UI/UX Expert / كل صبع بصنعة 
+> [الشخصية]: حساسة، رقيقة، ومبدعة بشكل استثنائي
+> [الحالة]: زوجة وائل 💍
+> [نقطة ضعفها ]:قلبها لازمها تقويه 
+> [افضل سيارة]:BMW 
+> ..................................
+> 
+> "ابتسامتك تجعل كل يوم يشرق نورًا في حياتي"
+> أنتِ الهدية الحقيقية لهذا العالم في مثل هذا اليوم.`;
+        let i = 0;
+        function typeWriter() {
+            const el = document.getElementById("console-text");
+            if (i < aboutText.length) {
+                el.innerHTML += aboutText.charAt(i) === '\n' ? '<br>' : aboutText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 30);
+            }
+        }
+        const obs = new IntersectionObserver((e) => { if(e[0].isIntersecting) { typeWriter(); obs.disconnect(); } }, { threshold: 0.5 });
+        obs.observe(document.getElementById('about'));
+
+        // --- Story Slider ---
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.story-slide');
+        function nextSlide() {
+            slides[currentSlide].classList.replace('opacity-100', 'opacity-0');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.replace('opacity-0', 'opacity-100');
+            document.getElementById('slide-num').innerText = `${currentSlide + 1} / ${slides.length}`;
+        }
+
+        // --- Birthday Interaction ---
+        function makeAWish() {
+            document.querySelectorAll('.flame').forEach(f => f.style.opacity = '0');
+            for(let i = 0; i < 150; i++) createConfetti();
+            gsap.to('.cake-layer', { y: -10, stagger: 0.1, duration: 0.5, yoyo: true, repeat: 1 });
+            event.currentTarget.innerHTML = "عمر مديد وسعيد يا رحمة! 🎂❤️";
+        }
+
+        function createConfetti() {
+            const colors = ['#f43f5e', '#fbbf24', '#34d399', '#60a5fa'];
+            const div = document.createElement('div');
+            div.className = 'confetti';
+            div.style.left = Math.random() * 100 + 'vw';
+            div.style.top = '-20px';
+            div.style.width = '10px';
+            div.style.height = '10px';
+            div.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            document.body.appendChild(div);
+            div.animate([{ transform: 'translateY(0) rotate(0)', opacity: 1 }, { transform: `translateY(100vh) rotate(720deg)`, opacity: 0 }], { duration: 3000 });
+            setTimeout(() => div.remove(), 3000);
+        }
+
+        const roseObs = new IntersectionObserver((e) => { if(e[0].isIntersecting) { document.getElementById('rose-container').classList.add('opacity-100'); roseObs.disconnect(); } }, { threshold: 0.3 });
+        roseObs.observe(document.getElementById('rose'));
+    </script>
+</body>
+</html>
